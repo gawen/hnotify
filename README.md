@@ -8,7 +8,8 @@ Based on [PyQt4](http://wiki.python.org/moin/PyQt4). Works on Linux, MacOSX and 
 
 On Ubuntu,
 
-    sudo apt-get install python-qt4
+    apt-get install python-qt4
+    pip install requests
 
 Then
 
