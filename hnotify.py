@@ -48,7 +48,22 @@ class MainWindow(QMainWindow):
         self.icon_soso = QIcon(os.path.join(local_path, "icon-soso.png"))
         self.icon_bad = QIcon(os.path.join(local_path, "icon-bad.png"))
 
+        self.refresh_contextmenu_action = QAction("Refresh now", self)
+        self.connect(self.refresh_contextmenu_action, SIGNAL("triggered()"), lambda: self.update_pickup(True))
+
+        self.visit_contextmenu_action = QAction("Visit website", self)
+        self.connect(self.visit_contextmenu_action, SIGNAL("triggered()"), self.visit_website)
+        
+        self.quit_contextmenu_action = QAction("Quit", self)
+        self.connect(self.quit_contextmenu_action, SIGNAL("triggered()"), self.quit)
+
+        self.menu = QMenu()
+        self.menu.addAction(self.refresh_contextmenu_action)
+        self.menu.addAction(self.visit_contextmenu_action)
+        self.menu.addAction(self.quit_contextmenu_action)
+
         self.tray = QSystemTrayIcon(self.icon_bad, self)
+        self.tray.setContextMenu(self.menu)
         self.tray.show()
         self.connect(self.tray, SIGNAL("activated(QSystemTrayIcon::ActivationReason)"), self.on_tray)
 
@@ -58,16 +73,20 @@ class MainWindow(QMainWindow):
 
         self.update_pickup()
 
-    def update_pickup(self):
+    def update_pickup(self, force_display = None):
+        force_display = force_display if force_display is not None else False
+
+        self.tray.setIcon(self.icon_bad)
+
         try:
-            sugg = get_suggestion()
+            sugg = get_state()
 
         except:
             import traceback
             traceback.print_exc()
             return
 
-        if self.last_sugg == sugg:
+        if not force_display and self.last_sugg == sugg:
             return
 
         icon = {
@@ -82,10 +101,19 @@ class MainWindow(QMainWindow):
         self.tray.showMessage("Hacker News", "%s time to post on HN." % (sugg.capitalize(), ))
         
         self.last_sugg = sugg
+            
+    def on_tray(self, reason):
+        if reason != QSystemTrayIcon.Trigger:
+            return
 
-    def on_tray(self):
-        webbrowser.open("http://hnpickup.appspot.com/")
+        self.update_pickup(True)
     
+    def visit_website(self):
+        webbrowser.open("http://hnpickup.appspot.com/")
+
+    def quit(self):
+        QApplication.quit()
+
 def main():
     logging.getLogger().setLevel(logging.DEBUG)
     logging.basicConfig()
