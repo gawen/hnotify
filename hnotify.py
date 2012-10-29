@@ -47,12 +47,12 @@ class MainWindow(QMainWindow):
         self.connect(self.tray, SIGNAL("activated(QSystemTrayIcon::ActivationReason)"), self.on_tray)
 
         self.timer = QTimer()
-        self.connect(self.timer, SIGNAL("timeout()"), self.on_timer)
+        self.connect(self.timer, SIGNAL("timeout()"), self.update_pickup)
         self.timer.start(5 * 60 * 1000)
 
-        self.on_timer()
+        self.update_pickup()
 
-    def on_timer(self):
+    def update_pickup(self):
         try:
             sugg = get_suggestion()
 
