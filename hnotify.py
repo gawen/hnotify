@@ -9,6 +9,8 @@ import os
 import sys
 import webbrowser
 
+local_path = os.path.dirname(__file__)
+
 def get_suggestion():
     ndata_elements = 3
     quantiles = requests.get("http://hnpickup.appspot.com/dm.json?ndata_elements=%s" % (1, )).json[0]
@@ -37,10 +39,10 @@ class MainWindow(QMainWindow):
 
         self.last_sugg = None
 
-        self.icon_verygood = QIcon("icon-verygood.png")
-        self.icon_good = QIcon("icon-good.png")
-        self.icon_soso = QIcon("icon-soso.png")
-        self.icon_bad = QIcon("icon-bad.png")
+        self.icon_verygood = QIcon(os.path.join(local_path, "icon-verygood.png"))
+        self.icon_good = QIcon(os.path.join(local_path, "icon-good.png"))
+        self.icon_soso = QIcon(os.path.join(local_path, "icon-soso.png"))
+        self.icon_bad = QIcon(os.path.join(local_path, "icon-bad.png"))
 
         self.tray = QSystemTrayIcon(self.icon_bad, self)
         self.tray.show()
