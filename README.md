@@ -6,6 +6,8 @@ Based on [PyQt4](http://wiki.python.org/moin/PyQt4). Works on Linux, MacOSX and 
 
 ## Install
 
+The script requires Python (>=2.6), Qt4 for Python (``PySide`` or ``PyQt4``) and ``requests`` for Python.
+
 On Ubuntu,
 
     apt-get install python-qt4
