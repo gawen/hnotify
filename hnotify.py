@@ -8,10 +8,14 @@ import time
 import os
 import sys
 import webbrowser
+import logging
 
 local_path = os.path.dirname(__file__)
 
-def get_suggestion():
+logger = logging.getLogger("hnotify")
+
+def get_state():
+    logger.info("Getting state...")
     ndata_elements = 3
     quantiles = requests.get("http://hnpickup.appspot.com/dm.json?ndata_elements=%s" % (1, )).json[0]
 
@@ -83,6 +87,9 @@ class MainWindow(QMainWindow):
         webbrowser.open("http://hnpickup.appspot.com/")
     
 def main():
+    logging.getLogger().setLevel(logging.DEBUG)
+    logging.basicConfig()
+
     app = QApplication(sys.argv)
     w = MainWindow()
     sys.exit(app.exec_())
