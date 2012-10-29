@@ -1,5 +1,14 @@
 #!/usr/bin/env python
 
+__author__ = "Gawen Arab"
+__copyright__ = "Copyright 2012, Gawen Arab"
+__credits__ = ["Gawen Arab"]
+__license__ = "MIT"
+__version__ = "0.1"
+__maintainer__ = "Gawen Arab"
+__email__ = "gawen@forgetbox.com"
+__status__ = "Beta"
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
