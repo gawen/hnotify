@@ -52,10 +52,10 @@ class MainWindow(QMainWindow):
 
         self.last_sugg = None
 
-        self.icon_verygood = QIcon(os.path.join(local_path, "icon-verygood.png"))
-        self.icon_good = QIcon(os.path.join(local_path, "icon-good.png"))
-        self.icon_soso = QIcon(os.path.join(local_path, "icon-soso.png"))
-        self.icon_bad = QIcon(os.path.join(local_path, "icon-bad.png"))
+        self.icon_verygood = QIcon(os.path.join(local_path, "icon-verygood.ico"))
+        self.icon_good = QIcon(os.path.join(local_path, "icon-good.ico"))
+        self.icon_soso = QIcon(os.path.join(local_path, "icon-soso.ico"))
+        self.icon_bad = QIcon(os.path.join(local_path, "icon-bad.ico"))
 
         self.refresh_contextmenu_action = QAction("Refresh now", self)
         self.connect(self.refresh_contextmenu_action, SIGNAL("triggered()"), lambda: self.update_pickup(True))
