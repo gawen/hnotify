@@ -51,15 +51,21 @@ class MainWindow(QMainWindow):
         self.refresh_contextmenu_action = QAction("Refresh now", self)
         self.connect(self.refresh_contextmenu_action, SIGNAL("triggered()"), lambda: self.update_pickup(True))
 
-        self.visit_contextmenu_action = QAction("Visit website", self)
-        self.connect(self.visit_contextmenu_action, SIGNAL("triggered()"), self.visit_website)
+        self.visit_pickup_contextmenu_action = QAction("Visit HN Pickup", self)
+        self.connect(self.visit_pickup_contextmenu_action, SIGNAL("triggered()"), self.visit_pickup_website)
+
+        self.visit_hn_contextmenu_action = QAction("Visit HN", self)
+        self.connect(self.visit_hn_contextmenu_action, SIGNAL("triggered()"), self.visit_hn_website)
         
         self.quit_contextmenu_action = QAction("Quit", self)
         self.connect(self.quit_contextmenu_action, SIGNAL("triggered()"), self.quit)
 
         self.menu = QMenu()
         self.menu.addAction(self.refresh_contextmenu_action)
-        self.menu.addAction(self.visit_contextmenu_action)
+        self.menu.addSeparator()
+        self.menu.addAction(self.visit_hn_contextmenu_action)
+        self.menu.addAction(self.visit_pickup_contextmenu_action)
+        self.menu.addSeparator()
         self.menu.addAction(self.quit_contextmenu_action)
 
         self.tray = QSystemTrayIcon(self.icon_bad, self)
@@ -108,7 +114,10 @@ class MainWindow(QMainWindow):
 
         self.update_pickup(True)
     
-    def visit_website(self):
+    def visit_hn_website(self):
+        webbrowser.open("http://news.ycombinator.com/")
+
+    def visit_pickup_website(self):
         webbrowser.open("http://hnpickup.appspot.com/")
 
     def quit(self):
