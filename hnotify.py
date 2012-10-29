@@ -54,7 +54,7 @@ class MainWindow(QMainWindow):
 
         self.timer = QTimer()
         self.connect(self.timer, SIGNAL("timeout()"), self.update_pickup)
-        self.timer.start(5 * 60 * 1000)
+        self.timer.start(15 * 60 * 1000)
 
         self.update_pickup()
 
