@@ -12,7 +12,8 @@ __status__ = "Beta"
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-import requests
+import urllib
+import json
 import time
 import os
 import sys
@@ -26,9 +27,9 @@ logger = logging.getLogger("hnotify")
 def get_state():
     logger.info("Getting state...")
     ndata_elements = 3
-    quantiles = requests.get("http://hnpickup.appspot.com/dm.json?ndata_elements=%s" % (1, )).json[0]
-
-    series = requests.get("http://hnpickup.appspot.com/etl.json?ndata_elements=%s" % (ndata_elements, )).json
+    quantiles = json.loads(urllib.urlopen("http://hnpickup.appspot.com/dm.json?ndata_elements=%s" % (1, )).read())[0]
+    
+    series = json.loads(urllib.urlopen("http://hnpickup.appspot.com/etl.json?ndata_elements=%s" % (ndata_elements, )).read())
 
     stories = series.pop()
     data_length = len(series[0]["data"]) - 1
